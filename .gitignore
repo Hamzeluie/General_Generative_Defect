@@ -1,0 +1,5 @@
+flagged/*
+*.png
+datasets/*
+results/
+*.ckpt

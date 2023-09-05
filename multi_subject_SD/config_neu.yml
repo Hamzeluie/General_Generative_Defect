@@ -1,0 +1,64 @@
+ {
+
+            "pretrained_model_name_or_path": "runwayml/stable-diffusion-v1-5",
+            "resolution": 512,
+            "train_batch_size": 1,
+            "max_train_steps": 2000,
+            "checkpointing_steps": 1000,
+            "checkpoints_total_limit": null,
+            "gradient_accumulation_steps": 1,
+            "trained_model_path": "/home/ubuntu/faryad/General_Generative_Defect/results/neu",
+            "adam_beta1": 0.9,
+            "adam_beta2": 0.999,
+            "adam_weight_decay": 0.01,
+            "adam_epsilon": 0.00000001,
+            "max_grad_norm": 1.0,
+            "learning_rate": 0.000005,
+            "scale_lr": false,
+            "lr_scheduler": "constant",
+            "lr_warmup_steps": 500,
+            "lr_num_cycles": 1,
+            "lr_power": 1.0,
+            "logging_dir": "logs",
+            "report_to": "tensorboard",
+            "num_train_epochs": 8,
+            "with_prior_preservation": false,
+            "prior_loss_weight": 1.0,
+            "num_class_images": 100,
+            "center_crop": false,
+            "sample_batch_size": 4,
+            
+            "allow_tf32": null,
+            "mixed_precision": "fp16",
+            "enable_xformers_memory_efficient_attention": null,
+            "push_to_hub": null,
+            "hub_token": null,
+            "hub_model_id": null,
+            "revision": null,
+            "tokenizer_name": null,
+            "instance_data_dir": "/home/ubuntu/faryad/General_Generative_Defect/datasets/NEU Metal Surface Defects Data/train_resized/Crazing,\
+                                  /home/ubuntu/faryad/General_Generative_Defect/datasets/NEU Metal Surface Defects Data/train_resized/Inclusion,\
+                                  /home/ubuntu/faryad/General_Generative_Defect/datasets/NEU Metal Surface Defects Data/train_resized/Patches,\
+                                  /home/ubuntu/faryad/General_Generative_Defect/datasets/NEU Metal Surface Defects Data/train_resized/Pitted,\
+                                  /home/ubuntu/faryad/General_Generative_Defect/datasets/NEU Metal Surface Defects Data/train_resized/Rolled,\
+                                  /home/ubuntu/faryad/General_Generative_Defect/datasets/NEU Metal Surface Defects Data/train_resized/Scratches\
+                                ",
+            "class_data_dir": null,
+            "instance_prompt": "a photo of a ##Crazing@mtl## defect screw,\
+                                a photo of a ##Inclusion@mtl## defect screw,\
+                                a photo of a ##Patches@mtl## defect screw,\
+                                a photo of a ##Pitted@mtl## defect screw,\
+                                a photo of a ##Rolled@mtl## defect screw,\
+                                a photo of a ##Scratches@mtl## defect screw",
+            "class_prompt": null,
+            "checkpoint_path": "/home/ubuntu/faryad/General_Generative_Defect/results/neu2.ckpt",
+            "seed": null,
+            "train_text_encoder": null,
+            "resume_from_checkpoint": null,
+            "use_8bit_adam": true,
+            "gradient_checkpointing": null,
+            "prior_generation_precision": null,
+            "local_rank": -1,
+            "half": true,
+            "use_safetensors": null
+}
