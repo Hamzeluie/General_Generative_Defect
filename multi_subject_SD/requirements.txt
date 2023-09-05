@@ -8,4 +8,8 @@ bitsandbytes
 diffusers
 datasets
 omegaconf
+opencv-contrib-python==4.7.0.72
+opencv-python==4.7.0.72
+widgetsnbextension==4.0.8
+
 
