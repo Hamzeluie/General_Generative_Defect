@@ -3,3 +3,4 @@ flagged/*
 datasets/*
 results/
 *.ckpt
+results

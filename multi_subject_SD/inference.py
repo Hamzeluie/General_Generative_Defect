@@ -1,7 +1,7 @@
 from diffusers import StableDiffusionInpaintPipeline
 import torch
 from PIL import Image
-from .model.convert_from_ckpt import download_from_original_stable_diffusion_ckpt
+from model.convert_from_ckpt import download_from_original_stable_diffusion_ckpt
 from diffusers import EulerDiscreteScheduler
 # from diffusers.pipelines.stable_diffusion.convert_from_ckpt import download_from_original_stable_diffusion_ckpt
 
@@ -90,12 +90,12 @@ class MultiSubjectInpaint():
 
 
 if __name__ == "__main__":
-    weight_path = "/home/ubuntu/Yasamani/neuee.ckpt"
-    converted_path = "/home/ubuntu/Yasamani"
+    weight_path = "/home/naserwin/hamze/General_Generative_Defect/multi_subject_SD/plastic_cracks3.ckpt"
+    converted_path = "/home/naserwin/hamze/General_Generative_Defect/multi_subject_SD/results"
     model = MultiSubjectInpaint(weight_path, converted_path)
 
-    input = Image.open("/home/rteam1/faryad/General_Generative_Defect/input.png")
-    msk = Image.open("/home/rteam1/faryad/General_Generative_Defect/mask.png")
-    prmt = "a photo of a ##m@nimu_scrw## defect screw"
-    result = model.generate(prmt, input, msk)
-    result.save("test_result.png")
+    # input = Image.open("/home/rteam1/faryad/General_Generative_Defect/input.png")
+    # msk = Image.open("/home/rteam1/faryad/General_Generative_Defect/mask.png")
+    # prmt = "a photo of a ##m@nimu_scrw## defect screw"
+    # result = model.generate(prmt, input, msk)
+    # result.save("test_result.png")

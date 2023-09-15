@@ -21,9 +21,11 @@ device = "cuda"
 #model_path = "runwayml/stable-diffusion-v1-5"
 # model_path = "/home/ubuntu/elyasi/multi_subject/General_Generative_Defect-main/multi_subject_SD/results/plastic/cracks_and_forenmatter"
 
-model_path = "/home/ubuntu/elyasi/multi_subject/General_Generative_Defect-main/multi_subject_SD/results/plastic/foregine_matter"
+model_path = "/home/naserwin/hamze/General_Generative_Defect/multi_subject_SD/results/plastic/scratch4"
 # a photo of a #org@crack@defect#
 # prompt = "a photo of a #org@foreginematter@defect#"
+# a photo of a #org@scratch@defect#
+# a photo of a #org@scratch@defect#
 prompt = "a photo of a #org@crack@defect#"
 
 pipe = StableDiffusionInpaintPipeline.from_pretrained(
@@ -85,8 +87,12 @@ def predict(dict,
             prompt,
             padding=0,
             blur_len=9,
-            strength=0.75,
-            CFG_Scale_slider=13):
+            strength=1.,
+            CFG_Scale_slider=13,
+            num_inference_steps=50,
+            guidance_scale=7.5,
+            transparency=0.3,
+            ):
     r = dict['image'].convert("RGB")
     # w , h = r.size
     image = dict['image'].convert("RGB")
@@ -105,22 +111,22 @@ def predict(dict,
         sd_result = pipe(prompt=prompt, 
                          image=img, 
                          mask_image=msk,
-                         strength=.5,
-                         num_inference_steps=75,
-                         guidance_scale=100,
+                         strength=strength,
+                         num_inference_steps=num_inference_steps,
+                         guidance_scale=guidance_scale,
                         #  generator=generator,
                          ).images
-        sd_result = postprocess(img, msk, sd_result[0], mask_blur_size=15)
+        sd_result = postprocess(img, msk, sd_result[0], mask_blur_size=15, transparency=transparency)
         # for debugging
-        sd_result.save(
-            "/home/ubuntu/elyasi/multi_subject/results/hair_eli/hair_new.png")
-        img.save("/home/ubuntu/elyasi/dataset/mehdiresult/0.jpg")
-        msk.save("/home/ubuntu/elyasi/multi_subject/General_Generative_Defect-main/multi_subject_SD/mask.png")
+        # sd_result.save(
+            # "/home/ubuntu/elyasi/multi_subject/results/hair_eli/hair_new.png")
+        # img.save("/home/ubuntu/elyasi/dataset/mehdiresult/0.jpg")
+        # msk.save("/home/ubuntu/elyasi/multi_subject/General_Generative_Defect-main/multi_subject_SD/mask.png")
         img512x512_result.append(sd_result)
     # merging cropped regions
     image_result = process.merge_cropping(img512x512_result, paste_loc)
     # image_result = image_result.resize((w,h))
-    image_result.save("/home/ubuntu/elyasi/multi_subject/results/hair_eli/hair_new.png")
+    # image_result.save("/home/ubuntu/elyasi/multi_subject/results/hair_eli/hair_new.png")
     return(image_result)
 
 
@@ -129,7 +135,15 @@ gr.Interface(
     title='Stable Diffusion In-Painting',
     inputs=[
         gr.Image(source='upload', tool='sketch', type='pil'),
-        gr.Textbox(label='prompt')
+        gr.Textbox(label='prompt'),
+        gr.Slider(minimum=0, maximum=10, value=0, label= "padding"),
+        gr.Slider(minimum=0, maximum=10, value=9, label= "blur_len"),
+        gr.Slider(minimum=0, maximum=1, value=1, label= "strength"),
+        gr.Slider(minimum=0, maximum=100, value=13, label= "CFG_Scale_slider"),
+        gr.Slider(minimum=0, maximum=100, value=50, label= "num_inference_steps"),
+        gr.Slider(minimum=0, maximum=100, value=7.5, label= "guidance_scale"),
+        gr.Slider(minimum=0, maximum=1, value=0.3, label= "transparency"),
+        
     ],
     outputs=[
         gr.Image()

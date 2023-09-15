@@ -45,7 +45,7 @@ def resize_dataset(new_size=(512,512)):
 if __name__ == "__main__":
 #     resize_dataset()
 #     exit()
-    file = open('/home/ubuntu/Yasamani/General_Generative_Defect/multi_subject_SD/config_hair.yml')
+    file = open('/home/naserwin/hamze/General_Generative_Defect/multi_subject_SD/3.yml')
     args = yaml.safe_load(file)
     file.close()
     print(args)

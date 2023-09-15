@@ -120,7 +120,7 @@ def crop_512x512(image, mask):
         mask_cropped.append(mask.crop((xc-256, yc-256, xc+256, yc+256)))
     return image_cropped, mask_cropped, mask_centers
 
-def postprocess(image, mask, predicted_image, mask_blur_size = 9):
+def postprocess(image, mask, predicted_image, mask_blur_size = 9, transparency=.7):
     ''' This function is merging the generated inpainted and the original image
     image: PIL type original image
     mask: PIL type 1 channel mask image
@@ -133,7 +133,7 @@ def postprocess(image, mask, predicted_image, mask_blur_size = 9):
     origin_image = image_np.copy()
     mask_np = mask_np / 255
     # inpainted_np = (1-mask_np)*image_np+mask_np*predicted_image_np
-    predicted_image_np = cv2.addWeighted(image_np.astype(np.float64),0.3,predicted_image_np.astype(np.float64),0.7,0)
+    predicted_image_np = cv2.addWeighted(image_np.astype(np.float64),1- transparency,predicted_image_np.astype(np.float64),transparency,0)
     inpainted_np = (1-mask_np)*origin_image+mask_np*predicted_image_np.astype(np.uint8)
 
     return Image.fromarray(inpainted_np.astype(np.uint8))
