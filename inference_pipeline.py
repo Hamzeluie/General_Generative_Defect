@@ -19,6 +19,7 @@ class Pipeline():
                  strength=0.75,
                  CFG_Scale_slider=13,
                  transparency=0.5,
+                 num_inference_steps=150,
                  negative_prompt=""):
         ''' inference 
         prompt: input text prompt
@@ -41,6 +42,7 @@ class Pipeline():
                                                             mask=msk, 
                                                             strength_slider=strength, 
                                                             CFG_Scale=CFG_Scale_slider,
+                                                            num_inference_steps=num_inference_steps,
                                                             negative_prompt=negative_prompt)
             sd_result = postprocess(img, msk, sd_result, transparency)
             ## for debugging

@@ -1,7 +1,12 @@
+import sys
 from diffusers import StableDiffusionInpaintPipeline
 import torch
 from PIL import Image
-from model.convert_from_ckpt import download_from_original_stable_diffusion_ckpt
+
+sys.path.append("./General_Generative_Defect")
+sys.path.append("./multi_subject_SD")
+sys.path.append("./model")
+from .model.convert_from_ckpt import download_from_original_stable_diffusion_ckpt
 from diffusers import EulerDiscreteScheduler
 # from diffusers.pipelines.stable_diffusion.convert_from_ckpt import download_from_original_stable_diffusion_ckpt
 
@@ -23,7 +28,7 @@ class MultiSubjectInpaint():
         # self.pipe.scheduler = scheduler
         print("Multi Subject Inpainting SD is loaded.")
 
-    def generate(self, prompt: str, image, mask, strength_slider:float, CFG_Scale:float, negative_prompt:str):
+    def generate(self, prompt: str, image, mask, strength_slider:float, CFG_Scale:float, negative_prompt:str, num_inference_steps:int=50):
         ''' inference 
         prompt: input text prompt
         image: PIL type input image 
@@ -35,7 +40,7 @@ class MultiSubjectInpaint():
                                     mask_image=mask,
                                     generator=self.generator, 
                                     guidance_scale=CFG_Scale,
-                                    num_inference_steps=150,
+                                    num_inference_steps=num_inference_steps,
                                     strength=strength_slider,
                                     negative_prompt=negative_prompt
                                     ).images[0]

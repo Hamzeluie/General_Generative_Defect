@@ -21,7 +21,7 @@ device = "cuda"
 #model_path = "runwayml/stable-diffusion-v1-5"
 # model_path = "/home/ubuntu/elyasi/multi_subject/General_Generative_Defect-main/multi_subject_SD/results/plastic/cracks_and_forenmatter"
 
-model_path = "/home/naserwin/hamze/General_Generative_Defect/multi_subject_SD/results/plastic/scratch4"
+model_path = "/home/naserwin/hamze/General_Generative_Defect/multi_subject_SD/results/plastic/scratch5"
 # a photo of a #org@crack@defect#
 # prompt = "a photo of a #org@foreginematter@defect#"
 # a photo of a #org@scratch@defect#
@@ -136,12 +136,12 @@ gr.Interface(
     inputs=[
         gr.Image(source='upload', tool='sketch', type='pil'),
         gr.Textbox(label='prompt'),
-        gr.Slider(minimum=0, maximum=10, value=0, label= "padding"),
-        gr.Slider(minimum=0, maximum=10, value=9, label= "blur_len"),
+        gr.Slider(minimum=0, maximum=30, value=0, label= "padding"),
+        gr.Slider(minimum=0, maximum=30, value=9, label= "blur_len"),
         gr.Slider(minimum=0, maximum=1, value=1, label= "strength"),
         gr.Slider(minimum=0, maximum=100, value=13, label= "CFG_Scale_slider"),
-        gr.Slider(minimum=0, maximum=100, value=50, label= "num_inference_steps"),
-        gr.Slider(minimum=0, maximum=100, value=7.5, label= "guidance_scale"),
+        gr.Slider(minimum=0, maximum=200, value=50, label= "num_inference_steps"),
+        gr.Slider(minimum=0, maximum=200, value=7.5, label= "guidance_scale"),
         gr.Slider(minimum=0, maximum=1, value=0.3, label= "transparency"),
         
     ],
