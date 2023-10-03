@@ -3,12 +3,14 @@ import sys
 path_root = Path(__file__).parents[1]
 sys.path.append(str(path_root))
 from model.train import TrainMultiSubjectSD
+from model.evaluation import eval_metrices
 from utils.process import crop_512x512
 import json
 import os
 from pathlib import Path
 from PIL import Image
 import yaml
+from datetime import datetime
 
 def crop_dataset():
     DATASET_PATH = Path("/home/ubuntu/faryad/General_Generative_Defect/datasets/screw")
@@ -43,14 +45,28 @@ def resize_dataset(new_size=(512,512)):
                images_512x512.save(subject_path + "/" + img.name)
                print(img.name)
 if __name__ == "__main__":
+     
+     
 #     resize_dataset()
 #     exit()
-    file = open('/home/naserwin/hamze/General_Generative_Defect/multi_subject_SD/3.yml')
-    args = yaml.safe_load(file)
-    file.close()
-    print(args)
-    trainObject  = TrainMultiSubjectSD()
-    # Set parameters
-    data = trainObject.setParameters(args)
-    # train model
-    trainObject.train(data)
+     starttime = datetime.now()    
+     
+     file = open('/home/naserwin/hamze/General_Generative_Defect/multi_subject_SD/3.yml')
+     args = yaml.safe_load(file)
+     file.close()
+     print(args)
+     trainObject  = TrainMultiSubjectSD()
+     # Set parameters
+     data = trainObject.setParameters(args)
+     # train model
+     trainObject.train(data)
+     
+     # Evaluation BY MEHDI HAMZE
+     print("*" * 10, "EVALUATION", "*" * 10)
+     eval_metrices(weight_path=args["trained_model_path"], prompt=args["instance_prompt"], img_path=args["instance_data_dir"])
+     #==========================
+         
+     end_time = datetime.now()
+     print("start time", starttime)
+     print("end time", end_time)
+     print("time longer ***********==", end_time - starttime)

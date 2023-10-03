@@ -2,11 +2,17 @@ import os
 import subprocess
 import gradio as gr
 from inference_pipeline import Pipeline
+import yaml
 
 
-
-weight_path = "/home/naserwin/hamze/General_Generative_Defect/multi_subject_SD/results/plastic/plastic_chip_21sep2023.ckpt"
+weight_path = "/home/naserwin/hamze/General_Generative_Defect/multi_subject_SD/results/final/plastic_chip_28_sep_2023.ckpt"
 converted_path = "/home/naserwin/hamze/General_Generative_Defect/multi_subject_SD/results/plastic/tst5"
+
+def write_config(cof_dict):
+    cofig = os.path.join(converted_path, "config.yaml")
+    with open(cofig, 'w') as file:
+        yaml.dump(cof_dict, file)
+    file.close()
 
 pipeline = Pipeline(weight_path=weight_path, converted_path=converted_path)
 
@@ -14,6 +20,12 @@ def defect_generate(prompt, dict, padding, blur_len, strength_slider, CFG_Scale_
     init_img = dict['image'].convert("RGB")
     mask_img = dict['mask'].convert("RGB")
     image = pipeline.generate(prompt, init_img, mask_img, padding, blur_len, strength_slider, CFG_Scale_slider, transparency=transparency, num_inference_steps=num_inference_steps)
+    write_config(cof_dict= {"padding": padding, 
+                  "blur_len": blur_len, 
+                  "strength_slider": strength_slider,
+                  "CFG_Scale_slider": CFG_Scale_slider, 
+                  "transparency": transparency, 
+                  "num_inference_steps":num_inference_steps})
     return image
 
 def grpu_proccess_kill():

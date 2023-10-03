@@ -1,3 +1,4 @@
+import cv2
 from SD.txt2img import Text2Image
 from SD.inpaint import Inpaint
 from multi_subject_SD.inference import MultiSubjectInpaint

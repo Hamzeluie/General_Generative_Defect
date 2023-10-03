@@ -4,3 +4,4 @@ datasets/*
 results/
 *.ckpt
 results
+multi_subject_SD/*.yml
